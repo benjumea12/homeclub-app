@@ -3,7 +3,7 @@ import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 // Styles
 import { styles } from './styles.PersonalInformation'
 // Components
-import { TextUI, ButtonUI, InputUI } from '@/src/components/ui'
+import { TextUI, ButtonUI, InputUI, DatePickerUI } from '@/src/components/ui'
 
 const PersonalInformation = () => {
   const { t } = useTypedTranslation()
@@ -17,7 +17,7 @@ const PersonalInformation = () => {
         <InputUI placeholder={t('email')} />
         <InputUI placeholder={t('last names')} />
         <InputUI placeholder={t('type of document')} />
-        <InputUI placeholder={t('birthdate')} />
+        <DatePickerUI placeholder={t('birthdate')} />
       </View>
       <View style={styles.actions}>
         <ButtonUI title={t('save')} size="large" />

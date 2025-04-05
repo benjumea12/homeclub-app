@@ -3,7 +3,7 @@ import { View, TouchableOpacity, ScrollView } from 'react-native'
 import { MotiView, MotiTransitionProp } from 'moti'
 import { Easing, ReduceMotion } from 'react-native-reanimated'
 // Components
-import { TextUI, IconUI } from '@/src/components/ui'
+import { IconUI } from '@/src/components/ui'
 // Styles
 import { styles } from './styles.ModalPopup'
 import {
@@ -19,13 +19,15 @@ const ModelSlide = () => {
 
   const scrollViewRef = useRef<ScrollView | null>(null)
 
-  const duration = 200
+  const duration = 300
 
   const [visibleLocal, setVisibleLocal] = useState(false)
 
   useEffect(() => {
     if (modalSlideStore.visible) {
       setVisibleLocal(true)
+    } else {
+      handleClose()
     }
   }, [modalSlideStore.visible])
 
@@ -41,7 +43,7 @@ const ModelSlide = () => {
     setVisibleLocal(false)
     setTimeout(() => {
       modalSlideStore.close()
-    }, duration)
+    }, duration + 200)
   }
 
   const transition: MotiTransitionProp = {
@@ -59,7 +61,7 @@ const ModelSlide = () => {
     }
   }
 
-  if (!modalSlideStore.visible) {
+  if (!modalSlideStore.visible && !visibleLocal) {
     return null
   }
 
@@ -72,16 +74,24 @@ const ModelSlide = () => {
       />
       <PanGestureHandler onGestureEvent={onGestureEvent}>
         <MotiView
-          style={styles.content}
+          style={[
+            styles.content,
+            modalSlideStore.minimal && {
+              paddingVertical: 0,
+              paddingHorizontal: 0,
+            },
+          ]}
           animate={{
             transform: [{ scale: visibleLocal ? 1 : 0.8 }],
             opacity: visibleLocal ? 1 : 0,
           }}
           transition={transition}
         >
-          <TouchableOpacity style={styles.close} onPress={handleClose}>
-            <IconUI name="close" color="black" size={27} />
-          </TouchableOpacity>
+          {!modalSlideStore.minimal && (
+            <TouchableOpacity style={styles.close} onPress={handleClose}>
+              <IconUI name="close" color="black" size={27} />
+            </TouchableOpacity>
+          )}
 
           <View style={styles.children}>{modalSlideStore.children}</View>
         </MotiView>
