@@ -1,0 +1,21 @@
+{
+  "guest": "guest",
+  "owner": "owner",
+  "email": "email",
+  "password": "password",
+  "forgot your password?": "forgot your password?",
+  "restore": "restore",
+  "log in": "log in",
+  "reservations": "reservations",
+  "my documents": "my documents",
+  "my account": "my account",
+  "favorites": "favorites",
+  "personal information": "personal information",
+  "arrival and check-in": "arrival and check-in",
+  "personal data": "personal data",
+  "name": "name",
+  "last names": "last names",
+  "type of document": "type of document",
+  "birthdate": "birthdate",
+  "save": "save"
+}

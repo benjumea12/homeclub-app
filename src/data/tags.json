@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Cine",
+    "value": "cine"
+  },
+  {
+    "title": "Música",
+    "value": "music"
+  },
+  {
+    "title": "Deportes",
+    "value": "sports"
+  },
+  {
+    "title": "Teatro",
+    "value": "theater"
+  },
+  {
+    "title": "Tecnología",
+    "value": "technology"
+  },
+  {
+    "title": "Gastronomía",
+    "value": "food"
+  },
+  {
+    "title": "Arte",
+    "value": "art"
+  }
+]
