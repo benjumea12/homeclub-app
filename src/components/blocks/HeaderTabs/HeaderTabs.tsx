@@ -1,4 +1,4 @@
-import { View, ScrollView, Text } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 import { useRouter } from 'expo-router'
 // Styles
@@ -16,7 +16,6 @@ const HeaderTabs = (prosp: Props) => {
   const { t } = useTypedTranslation()
 
   const goToTab = (path: string) => {
-    console.log('goToTab', path)
     router.push(path)
   }
 

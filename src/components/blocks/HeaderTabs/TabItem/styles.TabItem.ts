@@ -11,4 +11,8 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.grey,
   },
+  selected: {
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.black,
+  },
 })

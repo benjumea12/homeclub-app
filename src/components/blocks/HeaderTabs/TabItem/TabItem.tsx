@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 // Styles
 import { styles } from './styles.TabItem'
 // Components
 import { TextUI } from '@/src/components/ui'
+import { usePathname } from 'expo-router'
 
 interface Props {
   item: {
@@ -15,9 +17,22 @@ interface Props {
 const TabItem = (props: Props) => {
   const { item, onPress } = props
 
+  const [selected, setSelected] = useState(false)
+
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setSelected(pathname === item.path)
+  }, [pathname])
+
   return (
-    <TouchableOpacity style={styles.box} onPress={() => onPress(item.path)}>
-      <TextUI variant="h2">{item.title}</TextUI>
+    <TouchableOpacity
+      style={[styles.box, selected && styles.selected]}
+      onPress={() => onPress(item.path)}
+    >
+      <TextUI variant="h2" bold={selected}>
+        {item.title}
+      </TextUI>
     </TouchableOpacity>
   )
 }
