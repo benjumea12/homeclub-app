@@ -4,7 +4,7 @@ import { Slot } from 'expo-router'
 import { HeaderPage } from '@/src/components/blocks'
 import { HeaderTabs } from '@/src/components/blocks'
 
-// Styles
+// Stylesc
 import styles from '@/src/styles/layouts/home-layout.styles'
 
 const StartLayout = () => {

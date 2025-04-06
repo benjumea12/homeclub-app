@@ -37,6 +37,7 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
   }
 
   const [date, setDate] = useState(value ? new Date(value) : new Date())
+  const [openAndroid, setOpenAndroid] = useState(false)
 
   const onChange = (_: any, selectedDate: any) => {
     console.log('selectedDate', selectedDate)
@@ -46,6 +47,7 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
       const stringifiedDate = selectedDate.toString()
       onChangeText(stringifiedDate)
     }
+    Platform.OS === 'android' && setOpenAndroid(false)
   }
 
   const closeModal = () => {
@@ -72,7 +74,21 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
   }
 
   return (
-    <TouchableOpacity style={styles.contain} onPress={openModal}>
+    <TouchableOpacity
+      style={styles.contain}
+      onPress={() =>
+        Platform.OS === 'android' ? setOpenAndroid(true) : openModal
+      }
+    >
+      {openAndroid && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={'time'}
+          onChange={onChange}
+          display="spinner"
+        />
+      )}
       <View style={styles.inputContain}>
         <View style={styles.overlay}></View>
         <TextInput

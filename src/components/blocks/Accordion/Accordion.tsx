@@ -19,12 +19,12 @@ const Accordion = (prosp: Props) => {
       indicator: '1',
       title: t('personal information'),
       content: <PersonalInformation />,
-      height: 460,
+      height: 500,
     },
     {
       indicator: '2',
       title: t('arrival and check-in'),
-      height: 450,
+      height: 520,
       content: <CheckIn />,
     },
   ]
