@@ -9,7 +9,7 @@ import { TextUI, ButtonUI } from '@/src/components/ui'
 import { HeaderTabs, Accordion } from '@/src/components/blocks'
 import { ModalPopup } from '@/src/components/wrappers'
 
-const Index = () => {
+const MyDocuments = () => {
   const { t } = useTypedTranslation()
 
   return (
@@ -19,4 +19,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default MyDocuments

@@ -30,4 +30,20 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 10,
   },
+  options: {
+    padding: 10,
+  },
+  option: {
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGrey2,
+  },
+  actions: {
+    paddingHorizontal: 0,
+    paddingBottom: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
 })

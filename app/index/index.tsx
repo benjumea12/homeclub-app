@@ -20,7 +20,7 @@ const Index = () => {
     password: '',
   })
 
-  const validationSchemaLogin = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email(t('invalid email'))
       .required(t('email is required')),
@@ -65,7 +65,7 @@ const Index = () => {
         </View>
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchemaLogin}
+          validationSchema={validationSchema}
           onSubmit={sendForm}
         >
           {({ handleChange, handleSubmit, values, errors }) => (
@@ -84,19 +84,16 @@ const Index = () => {
                   onChangeText={handleChange('password')}
                   error={errors.password}
                 />
-                <View>
-                  {(Object.keys(errors) as (keyof typeof errors)[]).map(
-                    (error) => {
-                      return (
-                        <View style={styles.error} key={error}>
-                          <TextUI variant="body3" color="redDanger" bold>
-                            {`• ${errors[error] ?? ''}`}
-                          </TextUI>
-                        </View>
-                      )
-                    }
-                  )}
-                </View>
+                {Object.keys(errors).length > 0 && (
+                  <View style={styles.error}>
+                    <TextUI variant="body3" color="redDanger" bold>
+                      {`• ${
+                        errors[Object.keys(errors)[0] as keyof typeof errors] ??
+                        ''
+                      }`}
+                    </TextUI>
+                  </View>
+                )}
                 <TouchableOpacity style={styles.restorePassword}>
                   <TextUI variant="body1" color="grey">
                     {t('forgot your password?')}

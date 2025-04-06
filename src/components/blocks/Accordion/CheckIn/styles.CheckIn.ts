@@ -17,4 +17,5 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   texts: {},
+  error: {},
 })

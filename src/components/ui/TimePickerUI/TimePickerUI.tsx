@@ -1,12 +1,18 @@
 import { useState } from 'react'
-import { View, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
+import {
+  View,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  Platform,
+} from 'react-native'
 import { capitalCase } from 'change-case'
 import DateTimePicker from '@react-native-community/datetimepicker'
 // Components
 import ButtonUI from '../ButtonUI'
 import IconUI from '../IconUI'
 // Styles
-import { styles } from './styles.DatePickerUI'
+import { styles } from './styles.TimePickerUI'
 import { ModalPopup } from '@/src/components/wrappers'
 
 interface IProps {}
@@ -17,13 +23,24 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
   const modalStore = ModalPopup.useStore()
 
   const getDisplayValue = () => {
-    const selectedOption = value ? new Date(value).toLocaleDateString() : ''
+    if (!value) return ''
+    const dateValue = new Date(value)
+    const hours = dateValue.getHours()
+    const minutes = dateValue.getMinutes()
+    const period = hours >= 12 ? 'PM' : 'AM'
+    const formattedHours = hours % 12 || 12
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
+
+    const selectedOption = `${formattedHours}:${formattedMinutes} ${period}`
+
     return selectedOption
   }
 
   const [date, setDate] = useState(value ? new Date(value) : new Date())
 
   const onChange = (_: any, selectedDate: any) => {
+    console.log('selectedDate', selectedDate)
+
     setDate(selectedDate)
     if (onChangeText && selectedDate) {
       const stringifiedDate = selectedDate.toString()
@@ -42,9 +59,9 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
         <DateTimePicker
           testID="dateTimePicker"
           value={date}
-          mode="date"
+          mode={'time'}
           onChange={onChange}
-          display="inline"
+          display="spinner"
         />
         <View style={styles.actions}>
           <ButtonUI title="Ok" onPress={closeModal} />
@@ -66,7 +83,7 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
         />
       </View>
       <View style={styles.secureTextButton}>
-        <IconUI name="Calendar" />
+        <IconUI name="Clock" />
       </View>
     </TouchableOpacity>
   )

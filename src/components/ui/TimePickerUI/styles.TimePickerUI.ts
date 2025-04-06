@@ -31,13 +31,20 @@ export const styles = StyleSheet.create({
     bottom: 10,
   },
   picker: {
-    paddingHorizontal: 10,
+    alignItems: 'center',
+    position: 'relative',
   },
   actions: {
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+
+    //   width: '100%',
+    //   paddingHorizontal: 10,
+    //   paddingBottom: 10,
+    //   display: 'flex',
+    //   flexDirection: 'row',
+    //   justifyContent: 'flex-end',
+    // },
   },
 })

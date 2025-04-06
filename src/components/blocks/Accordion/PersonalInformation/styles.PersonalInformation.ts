@@ -15,4 +15,5 @@ export const styles = StyleSheet.create({
   actions: {
     marginTop: 20,
   },
+  error: {},
 })
