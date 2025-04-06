@@ -4,25 +4,17 @@ import { Colors } from '@/src/theme/theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    marginTop: 40,
     backgroundColor: Colors.lightGrey2,
+    padding: 20,
+    marginTop: 30,
   },
-  form: {
-    paddingVertical: 20,
-    gap: 20,
+  scroll: {
+    marginTop: 20,
   },
-  texts: {
-    paddingVertical: 20,
-    marginBottom: 20,
+  list: {
     display: 'flex',
-    flexDirection: 'row',
-    gap: 4,
-  },
-  error: {},
-  actions: {},
-  section: {
-    marginBottom: 35,
+    flexDirection: 'column',
+    gap: 10,
   },
 })
 

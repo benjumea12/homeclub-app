@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 // Styles
-import styles from '@/src/styles/pages/home.styles'
+import styles from '@/src/styles/pages/my-documents.styles'
 import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 
 // Components

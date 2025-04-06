@@ -41,5 +41,9 @@
   "current password": "current password",
   "new password": "new password",
   "confirm password": "confirm new password",
-  "change password": "change password"
+  "change password": "change password",
+  "spanish": "spanish",
+  "english": "english",
+  "language": "language",
+  "log out": "log out"
 }

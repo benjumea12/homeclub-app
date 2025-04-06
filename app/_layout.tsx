@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, createContext } from 'react'
 import { Slot } from 'expo-router'
 import { ThemeProvider, DefaultTheme } from '@react-navigation/native'
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
@@ -12,6 +12,8 @@ import styles from '@/src/styles/layouts/start-layout.styles'
 import '@/src/translation/i18n'
 // Components
 import { ModalPopup } from '@/src/components/wrappers'
+// Contexts
+import { AuthProvider } from '@/src/contexts/AuthContext'
 
 const RootLayout = () => {
   const [loaded, error] = useFonts({
@@ -34,7 +36,9 @@ const RootLayout = () => {
       <GestureHandlerRootView style={styles._layout}>
         <SafeAreaProvider>
           <SafeAreaView style={styles._appContainer}>
-            <Slot />
+            <AuthProvider>
+              <Slot />
+            </AuthProvider>
           </SafeAreaView>
         </SafeAreaProvider>
 

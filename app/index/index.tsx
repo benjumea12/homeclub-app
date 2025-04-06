@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
 import { View, TouchableOpacity } from 'react-native'
 // Styles
@@ -9,15 +9,21 @@ import { TextUI, ButtonUI, InputUI } from '@/src/components/ui'
 // Validation
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+// Libs
+import { supabase } from '@/src/libs/initSupabase'
+// Contexts
+import { useAuth } from '@/src/contexts/AuthContext'
 
 const Index = () => {
   const { t } = useTypedTranslation()
   const router = useRouter()
 
+  const { createSession } = useAuth()
+
   const [userType, setUserType] = useState('guest')
   const [initialValues, _] = useState({
-    email: 'email@mial.com',
-    password: '',
+    email: 'benjumeac22@outlook.com',
+    password: 'secret123',
   })
 
   const validationSchema = Yup.object().shape({
@@ -29,13 +35,41 @@ const Index = () => {
       .required(t('password is required')),
   })
 
-  const sendForm = (values: typeof initialValues) => {
+  const sendForm = async (values: typeof initialValues) => {
     console.log('values', values)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    })
+
+    if (error) {
+      console.error('Error al iniciar sesión:', error.message)
+    } else {
+      router.replace('/home')
+      createSession({
+        email: data.user?.email ?? '',
+        id: data.user?.id ?? '',
+      })
+    }
   }
 
-  const handleNavigate = () => {
-    router.push('/home')
-  }
+  useEffect(() => {
+    const checkSession = async () => {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession()
+      if (error) {
+        console.error('Error al obtener la sesión:', error.message)
+      } else if (session) {
+        console.log('Sesión activa:', session)
+        router.replace('/home')
+      } else {
+        console.log('No hay sesión activa')
+      }
+    }
+    checkSession()
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -107,8 +141,8 @@ const Index = () => {
                 <ButtonUI
                   title={t('log in')}
                   size="large"
-                  // onPress={() => handleSubmit()}
-                  onPress={handleNavigate}
+                  onPress={() => handleSubmit()}
+                  // onPress={handleNavigate}
                 />
               </View>
             </>

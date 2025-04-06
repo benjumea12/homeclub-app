@@ -7,12 +7,21 @@ import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 // Components
-import { TextUI, ButtonUI, InputUI, IconUI } from '@/src/components/ui'
+import {
+  TextUI,
+  ButtonUI,
+  InputUI,
+  IconUI,
+  SelectUI,
+} from '@/src/components/ui'
 import { HeaderTabs, Accordion } from '@/src/components/blocks'
 import { ModalPopup } from '@/src/components/wrappers'
+import i18n from '@/src/translation/i18n'
 
 const MyAccount = () => {
   const { t } = useTypedTranslation()
+
+  const [language, setLanguage] = useState('en')
 
   const [initialValues, _] = useState({
     currentPassword: '',
@@ -30,10 +39,32 @@ const MyAccount = () => {
     console.log('values', values)
   }
 
+  const languages = [
+    { value: 'es', label: t('spanish') },
+    { value: 'en', label: t('english') },
+  ]
+
+  const setLaguage = (value: string) => {
+    setLanguage(value)
+    i18n.changeLanguage(value)
+  }
+  // setLanguage(value)
+
   return (
     <View style={styles.container}>
-      <TextUI variant="h1">{t('change password')}</TextUI>
+      <View style={styles.section}>
+        <TextUI variant="h1">{t('language')}</TextUI>
+        <View style={styles.form}>
+          <SelectUI
+            options={languages}
+            placeholder={t('document type')}
+            value={language}
+            onChangeText={setLaguage}
+          />
+        </View>
+      </View>
 
+      <TextUI variant="h1">{t('change password')}</TextUI>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
