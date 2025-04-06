@@ -1,5 +1,5 @@
 import { useEffect, createContext } from 'react'
-import { Slot } from 'expo-router'
+import { Stack } from 'expo-router'
 import { ThemeProvider, DefaultTheme } from '@react-navigation/native'
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -37,7 +37,11 @@ const RootLayout = () => {
         <SafeAreaProvider>
           <SafeAreaView style={styles._appContainer}>
             <AuthProvider>
-              <Slot />
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                }}
+              />
             </AuthProvider>
           </SafeAreaView>
         </SafeAreaProvider>
