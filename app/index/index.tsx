@@ -1,25 +1,40 @@
 import { useState } from 'react'
+import { useRouter } from 'expo-router'
 import { View, TouchableOpacity } from 'react-native'
 // Styles
 import styles from '@/src/styles/pages/start.styles'
 import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
-
 // Components
 import { TextUI, ButtonUI, InputUI } from '@/src/components/ui'
-import { HeaderTabs, Accordion } from '@/src/components/blocks'
-import { ModalPopup } from '@/src/components/wrappers'
-
-import { useRouter } from 'expo-router'
+// Validation
+import { Formik } from 'formik'
+import * as Yup from 'yup'
 
 const Index = () => {
   const { t } = useTypedTranslation()
-
-  const [userType, setUserType] = useState('guest')
-
   const router = useRouter()
 
-  const handleLogin = () => {
-    router.push('home')
+  const [userType, setUserType] = useState('guest')
+  const [initialValues, _] = useState({
+    email: 'email@mial.com',
+    password: '',
+  })
+
+  const validationSchemaLogin = Yup.object().shape({
+    email: Yup.string()
+      .email(t('invalid email'))
+      .required(t('email is required')),
+    password: Yup.string()
+      .min(6, t('minimum of 6 characters'))
+      .required(t('password is required')),
+  })
+
+  const sendForm = (values: typeof initialValues) => {
+    console.log('values', values)
+  }
+
+  const handleNavigate = () => {
+    router.push('/home')
   }
 
   return (
@@ -48,21 +63,60 @@ const Index = () => {
             </TextUI>
           </TouchableOpacity>
         </View>
-        <View style={styles.formContain}>
-          <InputUI placeholder={t('email')} />
-          <InputUI placeholder={t('password')} secureTextEntry />
-          <TouchableOpacity style={styles.restorePassword}>
-            <TextUI variant="body1" color="grey">
-              {t('forgot your password?')}
-            </TextUI>
-            <TextUI variant="body1" bold>
-              {t('restore')}
-            </TextUI>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.formActions}>
-          <ButtonUI title={t('log in')} size="large" onPress={handleLogin} />
-        </View>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchemaLogin}
+          onSubmit={sendForm}
+        >
+          {({ handleChange, handleSubmit, values, errors }) => (
+            <>
+              <View style={styles.formContain}>
+                <InputUI
+                  placeholder={t('email')}
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  error={errors.email}
+                />
+                <InputUI
+                  placeholder={t('password')}
+                  secureTextEntry
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  error={errors.password}
+                />
+                <View>
+                  {(Object.keys(errors) as (keyof typeof errors)[]).map(
+                    (error) => {
+                      return (
+                        <View style={styles.error} key={error}>
+                          <TextUI variant="body3" color="redDanger" bold>
+                            {`• ${errors[error] ?? ''}`}
+                          </TextUI>
+                        </View>
+                      )
+                    }
+                  )}
+                </View>
+                <TouchableOpacity style={styles.restorePassword}>
+                  <TextUI variant="body1" color="grey">
+                    {t('forgot your password?')}
+                  </TextUI>
+                  <TextUI variant="body1" bold>
+                    {t('restore')}
+                  </TextUI>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formActions}>
+                <ButtonUI
+                  title={t('log in')}
+                  size="large"
+                  // onPress={() => handleSubmit()}
+                  onPress={handleNavigate}
+                />
+              </View>
+            </>
+          )}
+        </Formik>
       </View>
     </View>
   )

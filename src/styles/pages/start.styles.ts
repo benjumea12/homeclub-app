@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   formActions: {},
+  error: {
+    marginTop: 5,
+  },
 })
 
 export default styles

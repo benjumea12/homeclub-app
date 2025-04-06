@@ -20,5 +20,10 @@
   "save": "save",
   "check - in": "check - in",
   "check-in date": "check-in date",
-  "check-in time": "check-in time"
+  "check-in time": "check-in time",
+  "invalid email": "invalid email",
+  "invalid password": "invalid password",
+  "email is required": "email is required",
+  "password is required": "password is required",
+  "minimum of 6 characters": "minimum of 6 characters"
 }
