@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.grey,
     paddingVertical: 30,
+    paddingBottom: 0,
   },
   pageContent: {
     flex: 1,

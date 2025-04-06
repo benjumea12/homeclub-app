@@ -5,6 +5,7 @@ import { styles } from './styles.Accordion'
 // Components
 import AccordionItem from './AccordionItem'
 import PersonalInformation from './PersonalInformation'
+import CheckIn from './CheckIn'
 
 interface Props {}
 
@@ -18,17 +19,13 @@ const Accordion = (prosp: Props) => {
       indicator: '1',
       title: t('personal information'),
       content: <PersonalInformation />,
-      height: 500,
+      height: 550,
     },
     {
       indicator: '2',
       title: t('arrival and check-in'),
-      height: 500,
-      content: (
-        <View>
-          <Text>Content of Item 1</Text>
-        </View>
-      ),
+      height: 450,
+      content: <CheckIn />,
     },
   ]
 

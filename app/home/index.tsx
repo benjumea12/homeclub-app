@@ -14,9 +14,7 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TextUI>RESERVATIONS</TextUI>
-      </View>
+      <TextUI>RESERVATIONS</TextUI>
     </View>
   )
 }

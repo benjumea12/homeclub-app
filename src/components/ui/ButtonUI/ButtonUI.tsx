@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native'
 // Components
-import TextUI, { TVariantTextUI } from '../TextUI'
+import TextUI from '../TextUI'
 import IconUI, { IconUINames } from '../IconUI'
 // Theme
 import { TColors, Colors } from '@/src/theme'

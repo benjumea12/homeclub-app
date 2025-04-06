@@ -17,8 +17,6 @@ import { useStore } from './store.ModalPopup'
 const ModelSlide = () => {
   const modalSlideStore = useStore()
 
-  const scrollViewRef = useRef<ScrollView | null>(null)
-
   const duration = 300
 
   const [visibleLocal, setVisibleLocal] = useState(false)
@@ -30,14 +28,6 @@ const ModelSlide = () => {
       handleClose()
     }
   }, [modalSlideStore.visible])
-
-  useEffect(() => {
-    if (visibleLocal) {
-      if (scrollViewRef.current) {
-        scrollViewRef.current.scrollToEnd({ animated: false })
-      }
-    }
-  }, [visibleLocal])
 
   const handleClose = () => {
     setVisibleLocal(false)
@@ -53,14 +43,6 @@ const ModelSlide = () => {
     reduceMotion: ReduceMotion.Never,
   }
 
-  const onGestureEvent = (
-    event: GestureEvent<PanGestureHandlerEventPayload>
-  ) => {
-    if (event.nativeEvent.translationY > 200) {
-      handleClose()
-    }
-  }
-
   if (!modalSlideStore.visible && !visibleLocal) {
     return null
   }
@@ -72,30 +54,28 @@ const ModelSlide = () => {
         animate={{ opacity: visibleLocal ? 1 : 0 }}
         transition={transition}
       />
-      <PanGestureHandler onGestureEvent={onGestureEvent}>
-        <MotiView
-          style={[
-            styles.content,
-            modalSlideStore.minimal && {
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-            },
-          ]}
-          animate={{
-            transform: [{ scale: visibleLocal ? 1 : 0.8 }],
-            opacity: visibleLocal ? 1 : 0,
-          }}
-          transition={transition}
-        >
-          {!modalSlideStore.minimal && (
-            <TouchableOpacity style={styles.close} onPress={handleClose}>
-              <IconUI name="close" color="black" size={27} />
-            </TouchableOpacity>
-          )}
+      <MotiView
+        style={[
+          styles.content,
+          modalSlideStore.minimal && {
+            paddingVertical: 0,
+            paddingHorizontal: 0,
+          },
+        ]}
+        animate={{
+          transform: [{ scale: visibleLocal ? 1 : 0.8 }],
+          opacity: visibleLocal ? 1 : 0,
+        }}
+        transition={transition}
+      >
+        {!modalSlideStore.minimal && (
+          <TouchableOpacity style={styles.close} onPress={handleClose}>
+            <IconUI name="close" color="black" size={27} />
+          </TouchableOpacity>
+        )}
 
-          <View style={styles.children}>{modalSlideStore.children}</View>
-        </MotiView>
-      </PanGestureHandler>
+        <View style={styles.children}>{modalSlideStore.children}</View>
+      </MotiView>
     </View>
   )
 }

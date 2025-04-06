@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { Slot } from 'expo-router'
 // Components
 import { HeaderPage } from '@/src/components/blocks'
@@ -16,9 +16,9 @@ const StartLayout = () => {
         <HeaderTabs />
       </View>
 
-      <View style={styles.pageContent}>
+      <ScrollView style={styles.pageContent}>
         <Slot />
-      </View>
+      </ScrollView>
     </View>
   )
 }

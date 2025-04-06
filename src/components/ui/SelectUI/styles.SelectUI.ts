@@ -30,12 +30,4 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 10,
   },
-  picker: {},
-  actions: {
-    paddingHorizontal: 5,
-    paddingBottom: 5,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
 })

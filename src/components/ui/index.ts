@@ -6,6 +6,7 @@ import ButtonUI from './ButtonUI'
 import LogoUI from './LogoUI/LogoUI'
 import InputUI from './InputUI'
 import DatePickerUI from './DatePickerUI'
+import SelectUI from './SelectUI'
 
 export {
   LogoUI,
@@ -17,4 +18,5 @@ export {
   ButtonUI,
   InputUI,
   DatePickerUI,
+  SelectUI,
 }

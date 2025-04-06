@@ -3,15 +3,15 @@ import { View, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
 import { capitalCase } from 'change-case'
 import DateTimePicker from '@react-native-community/datetimepicker'
 // Components
-import TextUI from '../TextUI'
+import ButtonUI from '../ButtonUI'
 import IconUI from '../IconUI'
 // Styles
 import { styles } from './styles.DatePickerUI'
 import { ModalPopup } from '@/src/components/wrappers'
 
-interface IChip {}
+interface IProps {}
 
-const InputUI = (props: IChip & TextInputProps) => {
+const DatePickerUI = (props: IProps & TextInputProps) => {
   const { placeholder = '' } = props
 
   const modalStore = ModalPopup.useStore()
@@ -21,25 +21,33 @@ const InputUI = (props: IChip & TextInputProps) => {
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate
     setDate(currentDate)
+  }
+
+  const closeModal = () => {
     modalStore.close()
   }
 
-  const openModelSearch = () => {
+  const openModal = () => {
     modalStore.open(
       placeholder,
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode="date"
-        onChange={onChange}
-        display="inline"
-      />,
+      <View style={styles.picker}>
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          onChange={onChange}
+          display="inline"
+        />
+        <View style={styles.actions}>
+          <ButtonUI title="Ok" onPress={closeModal} />
+        </View>
+      </View>,
       true
     )
   }
 
   return (
-    <TouchableOpacity style={styles.contain} onPress={openModelSearch}>
+    <TouchableOpacity style={styles.contain} onPress={openModal}>
       {/* {show && ( */}
 
       {/* )} */}
@@ -58,4 +66,4 @@ const InputUI = (props: IChip & TextInputProps) => {
   )
 }
 
-export default InputUI
+export default DatePickerUI

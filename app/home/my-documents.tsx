@@ -14,7 +14,7 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <Accordion></Accordion>
+      <Accordion />
     </View>
   )
 }

@@ -17,5 +17,8 @@
   "last names": "last names",
   "type of document": "type of document",
   "birthdate": "birthdate",
-  "save": "save"
+  "save": "save",
+  "check - in": "check - in",
+  "check-in date": "check-in date",
+  "check-in time": "check-in time"
 }
