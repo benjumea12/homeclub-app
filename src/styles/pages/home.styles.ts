@@ -4,8 +4,8 @@ import { Colors } from '@/src/theme/theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 15,
-    paddingHorizontal: 5,
+
+    padding: 20,
   },
   form: {
     paddingVertical: 20,

@@ -14,9 +14,7 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TextUI>FAVORITES</TextUI>
-      </View>
+      <TextUI variant="h1">{t('favorites')}</TextUI>
     </View>
   )
 }

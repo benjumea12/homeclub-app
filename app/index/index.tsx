@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'expo-router'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native'
 // Styles
 import styles from '@/src/styles/pages/start.styles'
 import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 // Components
 import { TextUI, ButtonUI, InputUI } from '@/src/components/ui'
+import { AlertDanger, ResetPassword } from '@/src/components/blocks'
 // Validation
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -13,12 +14,17 @@ import * as Yup from 'yup'
 import { supabase } from '@/src/libs/initSupabase'
 // Contexts
 import { useAuth } from '@/src/contexts/AuthContext'
+import { ModalPopup } from '@/src/components/wrappers'
 
 const Index = () => {
   const { t } = useTypedTranslation()
   const router = useRouter()
 
   const { createSession } = useAuth()
+
+  const modalPopupStore = ModalPopup.useStore()
+
+  const [loading, setLoading] = useState(false)
 
   const [userType, setUserType] = useState('guest')
   const [initialValues, _] = useState({
@@ -36,20 +42,25 @@ const Index = () => {
   })
 
   const sendForm = async (values: typeof initialValues) => {
+    setLoading(true)
     console.log('values', values)
     const { data, error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     })
 
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+
     if (error) {
-      console.error('Error al iniciar sesión:', error.message)
+      sendFormError(error.message)
     } else {
-      router.replace('/home')
       createSession({
         email: data.user?.email ?? '',
         id: data.user?.id ?? '',
       })
+      router.replace('/home')
     }
   }
 
@@ -62,7 +73,10 @@ const Index = () => {
       if (error) {
         console.error('Error al obtener la sesión:', error.message)
       } else if (session) {
-        console.log('Sesión activa:', session)
+        createSession({
+          email: session.user?.email ?? '',
+          id: session.user?.id ?? '',
+        })
         router.replace('/home')
       } else {
         console.log('No hay sesión activa')
@@ -70,6 +84,14 @@ const Index = () => {
     }
     checkSession()
   }, [])
+
+  const sendFormError = (message: string) => {
+    modalPopupStore.open('danger', <AlertDanger message={t(message as any)} />)
+  }
+
+  const resetPassword = () => {
+    modalPopupStore.open('danger', <ResetPassword />)
+  }
 
   return (
     <View style={styles.container}>
@@ -128,7 +150,10 @@ const Index = () => {
                     </TextUI>
                   </View>
                 )}
-                <TouchableOpacity style={styles.restorePassword}>
+                <TouchableOpacity
+                  style={styles.restorePassword}
+                  onPress={resetPassword}
+                >
                   <TextUI variant="body1" color="grey">
                     {t('forgot your password?')}
                   </TextUI>
@@ -138,12 +163,16 @@ const Index = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.formActions}>
-                <ButtonUI
-                  title={t('log in')}
-                  size="large"
-                  onPress={() => handleSubmit()}
-                  // onPress={handleNavigate}
-                />
+                {loading ? (
+                  <ActivityIndicator />
+                ) : (
+                  <ButtonUI
+                    title={t('log in')}
+                    size="large"
+                    onPress={() => handleSubmit()}
+                    // onPress={handleNavigate}
+                  />
+                )}
               </View>
             </>
           )}

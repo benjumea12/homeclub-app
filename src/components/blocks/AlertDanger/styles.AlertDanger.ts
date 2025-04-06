@@ -1,0 +1,12 @@
+import { StyleSheet } from 'react-native'
+// Theme
+import { Colors } from '@/src/theme/theme'
+
+export const styles = StyleSheet.create({
+  contain: {
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    gap: 20,
+    padding: 10,
+  },
+})

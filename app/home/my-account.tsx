@@ -21,7 +21,7 @@ import i18n from '@/src/translation/i18n'
 const MyAccount = () => {
   const { t } = useTypedTranslation()
 
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState(i18n.language)
 
   const [initialValues, _] = useState({
     currentPassword: '',
@@ -46,6 +46,7 @@ const MyAccount = () => {
 
   const setLaguage = (value: string) => {
     setLanguage(value)
+
     i18n.changeLanguage(value)
   }
   // setLanguage(value)

@@ -7,8 +7,12 @@ import { useTypedTranslation } from '@/src/translation/useTypedTranslation'
 import { supabase } from '@/src/libs/initSupabase'
 import { useRouter } from 'expo-router'
 
+import { useAuth } from '@/src/contexts/AuthContext'
+
 const HeaderPage = () => {
   const { t } = useTypedTranslation()
+
+  const { active } = useAuth()
 
   const router = useRouter()
 
@@ -28,7 +32,9 @@ const HeaderPage = () => {
   return (
     <View style={styles.header}>
       <LogoUI size={200} />
-      <ButtonUI title={t('log out')} size="small" onPress={logOut} />
+      {active && (
+        <ButtonUI title={t('log out')} size="small" onPress={logOut} />
+      )}
     </View>
   )
 }

@@ -45,5 +45,11 @@
   "spanish": "spanish",
   "english": "english",
   "language": "language",
-  "log out": "log out"
+  "log out": "log out",
+  "Invalid login credentials": "Invalid login credentials",
+  "reserved": "reserved",
+  "free": "free",
+  "enter your email to reset your password": "enter your email to reset your password",
+  "reset password": "reset password",
+  "send": "send"
 }

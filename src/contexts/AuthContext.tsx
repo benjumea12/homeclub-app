@@ -20,10 +20,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const createSession = (user: User) => {
     setUser(user)
+    setActive(true)
   }
 
   const deleteSession = () => {
     setUser(null)
+    setActive(false)
   }
 
   return (
