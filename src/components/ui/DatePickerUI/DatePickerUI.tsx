@@ -67,7 +67,7 @@ const DatePickerUI = (props: IProps & TextInputProps) => {
     <TouchableOpacity
       style={styles.contain}
       onPress={() =>
-        Platform.OS === 'android' ? setOpenAndroid(true) : openModal
+        Platform.OS === 'android' ? setOpenAndroid(true) : openModal()
       }
     >
       {openAndroid && (
