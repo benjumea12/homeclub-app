@@ -12,6 +12,8 @@ import { useAuth } from '@/src/contexts/AuthContext'
 const HeaderPage = () => {
   const { t } = useTypedTranslation()
 
+  const { deleteSession } = useAuth()
+
   const { active } = useAuth()
 
   const router = useRouter()
@@ -21,6 +23,7 @@ const HeaderPage = () => {
     supabase.auth
       .signOut()
       .then(() => {
+        deleteSession()
         router.replace('/')
         console.log('User signed out successfully')
       })
